@@ -1,0 +1,63 @@
+name: 'olivia'
+description: 'Code generation and package publishing from OpenApi specification'
+
+inputs: 
+  generator:
+    description: The name of the generator (i.e. the language to generate the client library in) to use e.g. "typescript-angular"
+    required: true
+  generator-tag:
+    description: The Docker tag of the openapitools/openapi-generator-cli image to use.
+    required: false
+    default: latest
+  openapi-file:
+    description: The path to the OpenAPI document to generate a client library for
+    required: false
+    default: openapi.json
+  openapi-url:
+    description: If set, the OpenAPI document will be loaded from this URL instead of openapi-file.
+    required: false
+    default: UNSET
+  config-file:
+    description: The path to the config file to be passed along to the OpenAPITools generator
+    required: false
+    default: UNSET
+  template-dir:
+    description: The path to the folder containing the template files
+    required: false
+    default: UNSET
+  command-args:
+    description: Optional, additional arguments to pass through to the generator.
+    required: false
+  output-folder:
+    description: Optional, the output path for generated source code. If this is not passed, the code will be placed in the 
+    generated folder under project root as /generated/{generator}-client. If it is passed as 'output', the generated code will be 
+    placed under 'output/{generator}-client'. To change the 'client' please refer to output-generator-type-folder-suffix.
+    required: false
+    default: generated
+  output-generator-type-folder-suffix:
+    description: Optional, the suffix for the generated code folder. Default, 'generator'-'client', e.g. typescript-angular-client. 
+    required: false
+    default: client
+  keep-generated-folders:
+    description: Optional, the flag to keep or remove generated folders. 
+    required: false
+    default: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 'Generate code under this repo'
+      uses: openapi-generators/openapitools-generator-action@v1
+      with:
+        generator: ${{inputs.generator}}
+        generator-tag: ${{inputs.generator-tag}}
+        openapi-file: ${{inputs.openapi-file}}
+        openapi-url: ${{inputs.openapi-url}}
+        config-file: ${{inputs.config-file}}
+        template-dir: ${{inputs.template-dir}}
+        command-args: ${{inputs.command-args}}
+    - name: 'Rename generated folder'
+      shell: bash
+      run: |
+        rm -rf ${{ inputs.output-folder }}/${{ inputs.generator }}-${{ inputs.output-generator-type-folder-suffix }}/* -y
+        mv /${{ inputs.generator }}-client /${{ inputs.output-folder }}/${{ inputs.generator }}-${{ inputs.output-generator-type-folder-suffix }}
