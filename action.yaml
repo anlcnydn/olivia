@@ -1,5 +1,8 @@
 name: 'olivia-gen'
 description: 'Code generation and package publishing from OpenApi specification'
+branding:
+  icon: 'code'  
+  color: 'orange'
 
 inputs: 
   generator:
