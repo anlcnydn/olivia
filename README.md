@@ -1,3 +1,7 @@
+# WIP 
+
+Still work in progress. 
+
 # olivia
 Olivia is a Github Action to provide automatic code generation and package publishing from an OpenApi Spec.
 
