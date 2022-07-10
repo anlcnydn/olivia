@@ -29,9 +29,9 @@ inputs:
     description: Optional, additional arguments to pass through to the generator.
     required: false
   output-folder:
-    description: Optional, the output path for generated source code. If this is not passed, the code will be placed in the 
+    description: "Optional, the output path for generated source code. If this is not passed, the code will be placed in the 
     generated folder under project root as /generated/{generator}-client. If it is passed as 'output', the generated code will be 
-    placed under 'output/{generator}-client'. To change the 'client' please refer to output-generator-type-folder-suffix.
+    placed under 'output/{generator}-client'. To change the 'client' please refer to output-generator-type-folder-suffix."
     required: false
     default: generated
   output-generator-type-folder-suffix:
