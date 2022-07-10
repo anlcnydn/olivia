@@ -62,5 +62,5 @@ runs:
     - name: 'Rename generated folder'
       shell: bash
       run: |
-        rm -rf ${{ inputs.output-folder }}/${{ inputs.generator }}-${{ inputs.output-generator-type-folder-suffix }}/* -y
+        rm -rf ${{ inputs.output-folder }}/${{ inputs.generator }}-${{ inputs.output-generator-type-folder-suffix }}/*
         mv /${{ inputs.generator }}-client /${{ inputs.output-folder }}/${{ inputs.generator }}-${{ inputs.output-generator-type-folder-suffix }}
